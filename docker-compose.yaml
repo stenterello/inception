@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+	nginx:
+		container-name: nginx
+		image:
+		ports:
+			- "80:80"
+		restart: always
+	wordpress:
+		image:
+		depends_on:
+			- mariadb
+	mariadb:
+volumes:
+networks:
