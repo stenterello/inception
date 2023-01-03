@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wait for mariadb, then connect with credentials
+#wait for mariadb, then connect with credentials
 
 while ! mariadb -h$MARIADB_HOST -u$MARIADB_USR -p$MARIADB_PWD $MARIADB_NAME &>/dev/null; do
     sleep 3
@@ -13,3 +13,5 @@ wp core install --url=$DOMAIN_NAME/wordpress --title="Inception" --admin_user=$W
 wp user create $WP_DATABASE_USER $WP_DATABASE_EMAIL --role=author --user_pass=$WP_DATABASE_PWD --allow-root
 
 mv /tmp/index.html /var/www/html/index.html
+
+/usr/sbin/php-fpm7 -F -R

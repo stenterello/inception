@@ -63,6 +63,7 @@ COPY	conf/index.html /tmp/index.html
 
 RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
+WORKDIR		/var/www/html/wordpress
 
 COPY	tools/configure.sh /tmp/configure.sh
 
