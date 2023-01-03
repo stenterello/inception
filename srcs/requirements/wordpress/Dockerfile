@@ -2,6 +2,7 @@ FROM	alpine:3.13.6
 
 RUN		apk add --update --no-cache \
 		wget \
+		mariadb-client \
 		tar \
 		mariadb-client \
 		redis \
@@ -53,17 +54,15 @@ RUN		apk add --update --no-cache \
 		php7-zip \
 		php7-zlib
 
+
 RUN		adduser -S nginx && addgroup -S nginx
 
 COPY	conf/php-fpm.conf /etc/php7/php-fmp.conf
 COPY	conf/www.conf	/etc/php7/php-fpm.d/www.conf
 COPY	conf/index.html /tmp/index.html
 
-RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN		chmod +x wp-cli.phar
-RUN		cp wp-cli.phar /usr/bin/wp
+RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
-WORKDIR	/var/www/html/wordpress
 
 COPY	tools/configure.sh /tmp/configure.sh
 

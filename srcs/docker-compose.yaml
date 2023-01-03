@@ -1,15 +1,49 @@
-version: "3.8"
+version: '3'
 services:
-	nginx:
-		container-name: nginx
-		image:
-		ports:
-			- "80:80"
-		restart: always
-	wordpress:
-		image:
-		depends_on:
-			- mariadb
-	mariadb:
-volumes:
+
+    nginx:
+        build: requirements/nginx/
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "~/data:/var/www/html"
+        depends_on:
+            - wordpress
+        networks:
+            - frontend
+        restart: always
+    
+    wordpress:
+        build: requirements/wordpress/
+        container_name: wordpress
+        ports:
+            - "9000:9000"
+        volumes:
+            - "~/data:/var/www/html"
+        networks:
+            - frontend
+            - backend
+        depends_on:
+            - mariadb
+        restart: always
+        environment:
+            - .env
+        
+    mariadb:
+        build: requirements/mariadb/
+        container_name: mariadb
+        ports:
+            - "3306:3306"
+        volumes:
+            - "~/data/mariadb:/var/lib/mysql"
+        networks:
+            - backend
+        restart: always
+        environment:
+            - .env
+
 networks:
+    frontend:
+    backend:
