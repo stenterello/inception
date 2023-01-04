@@ -29,7 +29,13 @@ services:
             - mariadb
         restart: always
         environment:
-            - .env
+            DB_HOSTNAME: ${DB_HOSTNAME}
+            WP_DATABASE_USR: ${WP_DATABASE_USR}
+            WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+            WP_DATABASE_EMAIL: ${WP_DATABASE_EMAIL}
+            WP_DATABASE_NAME: ${WP_DATABASE_NAME}
+            DOMAIN_NAME: ${DOMAIN_NAME}
+
         
     mariadb:
         build: requirements/mariadb/
@@ -42,7 +48,11 @@ services:
             - backend
         restart: always
         environment:
-            - .env
+            DB_ROOT_PWD: ${DB_ROOT_PWD}
+            WP_DATABASE_NAME: ${WP_DATABASE_NAME}
+            WP_DATABASE_USR: ${WP_DATABASE_USR}
+            WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+
 
 networks:
     frontend:
