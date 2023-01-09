@@ -1,0 +1,13 @@
+// Aggiungere utente administrator al database wp_database;
+
+// Aggiungere volumi:
+	- ne sono necessari due:
+		- Database di wordpress: /var/lib/mysql/mysql/wp_database
+		- Database dei website files: /var/www/html/wordpress
+	- valutare se inserire un ulteriore volume con i log di nginx
+
+// Inserire comando per reindirizzare ddelladi.42.fr
+
+// Installare servizi bonus
+
+// Scegliere ulteriore servizio bonus
