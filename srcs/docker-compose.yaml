@@ -21,7 +21,7 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - "~/data:/var/www/html"
+            - "~/data:/var/www/html/wordpress"
         networks:
             - frontend
             - backend
@@ -30,11 +30,16 @@ services:
         restart: always
         environment:
             DB_HOSTNAME: ${DB_HOSTNAME}
-            WP_DATABASE_USR: ${WP_DATABASE_USR}
-            WP_DATABASE_PWD: ${WP_DATABASE_PWD}
-            WP_DATABASE_EMAIL: ${WP_DATABASE_EMAIL}
-            WP_DATABASE_NAME: ${WP_DATABASE_NAME}
             DOMAIN_NAME: ${DOMAIN_NAME}
+            DATABASE_NAME: ${DATABASE_NAME}
+            DATABASE_ADMIN: ${DATABASE_ADMIN}
+            DATABASE_ADMIN_PWD: ${DATABASE_ADMIN_PWD}
+            WP_ADMIN_USR: ${WP_ADMIN_USR}
+            WP_ADMIN_PWD: ${WP_ADMIN_PWD}
+            WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+            WP_USR: ${WP_USR}
+            WP_PWD: ${WP_PWD}
+            WP_EMAIL: ${WP_EMAIL}
 
         
     mariadb:
@@ -43,15 +48,15 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - "~/data/mariadb:/var/lib/mysql"
+            - "~/data/mariadb:/var/lib/mysql/mysql/${DATABASE_NAME}"
         networks:
             - backend
         restart: always
         environment:
             DB_ROOT_PWD: ${DB_ROOT_PWD}
-            WP_DATABASE_NAME: ${WP_DATABASE_NAME}
-            WP_DATABASE_USR: ${WP_DATABASE_USR}
-            WP_DATABASE_PWD: ${WP_DATABASE_PWD}
+            DATABASE_NAME: ${DATABASE_NAME}
+            DATABASE_ADMIN: ${DATABASE_ADMIN}
+            DATABASE_ADMIN_PWD: ${DATABASE_ADMIN_PWD}
 
 
 networks:
