@@ -1,7 +1,7 @@
 NAME=inception
 
 all:
-	echo "ddelladi.42.fr	localhost" | sudo tee -a /etc/hosts
+	./requirements/tools/configure.sh
 	sudo docker-compose -f srcs/docker-compose.yaml up --build
 
 stop:
@@ -10,8 +10,8 @@ stop:
 clean:
 	sudo docker-compose -f srcs/docker-compose.yaml down --volumes
 
-prune:
-	sudo docker system prune -f
+prune: clean
+	sudo docker system prune -a
 
 re: prune all
 

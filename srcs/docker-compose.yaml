@@ -2,13 +2,14 @@ version: '3'
 services:
 
     nginx:
+        image: nginx
         build: requirements/nginx/
         container_name: nginx
         ports:
             - "80:80"
             - "443:443"
         volumes:
-            - "~/data/nginx:/var/log/nginx/"
+            - nginx:/var/log/nginx
         depends_on:
             - wordpress
         networks:
@@ -16,12 +17,13 @@ services:
         restart: always
     
     wordpress:
+        image: wordpress
         build: requirements/wordpress/
         container_name: wordpress
         ports:
             - "9000:9000"
         volumes:
-            - "~/data:/var/www/html/wordpress"
+            - wp_files:/var/www/html/wordpress
         networks:
             - frontend
             - backend
@@ -43,12 +45,13 @@ services:
 
         
     mariadb:
+        image: mariadb
         build: requirements/mariadb/
         container_name: mariadb
         ports:
             - "3306:3306"
         volumes:
-            - "~/data/mariadb:/var/lib/mysql/mysql/${DATABASE_NAME}"
+            - wp_database:/var/lib/mysql/${DATABASE_NAME}
         networks:
             - backend
         restart: always
@@ -62,3 +65,26 @@ services:
 networks:
     frontend:
     backend:
+
+volumes:
+    wp_files:
+        driver: local
+        name: wp_files
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/ddelladi/data/wp_files
+    wp_database:
+        driver: local
+        name: wp_database
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/ddelladi/data/wp_database
+    nginx:
+        driver: local
+        name: nginx
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/ddelladi/data/nginx
