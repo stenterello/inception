@@ -1,7 +1,7 @@
 NAME=inception
 
 all:
-	./requirements/tools/configure.sh
+	./srcs/requirements/tools/configure.sh
 	sudo docker-compose -f srcs/docker-compose.yaml up --build
 
 stop:
