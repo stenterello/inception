@@ -51,7 +51,7 @@ services:
         ports:
             - "3306:3306"
         volumes:
-            - wp_database:/var/lib/mysql/${DATABASE_NAME}
+            - wp_database:/var/lib/mysql/
         networks:
             - backend
         restart: always
