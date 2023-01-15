@@ -31,6 +31,7 @@ services:
             - backend
         depends_on:
             - mariadb
+            - redis
         restart: always
         environment:
             DB_HOSTNAME: ${DB_HOSTNAME}
@@ -44,6 +45,8 @@ services:
             WP_USR: ${WP_USR}
             WP_PWD: ${WP_PWD}
             WP_EMAIL: ${WP_EMAIL}
+            REDIS_HOSTNAME: ${REDIS_HOSTNAME}
+            REDIS_PWD: ${REDIS_PWD}
 
         
     mariadb:
@@ -70,7 +73,7 @@ services:
         container_name: ftp
         ports:
             - "21:21"
-            - "50000-50030:50000-50030"
+            - "50500-50600:50500-50600"
         depends_on:
             - nginx
         volumes_from:
@@ -81,10 +84,31 @@ services:
         environment:
             FTP_USER: ${FTP_USER}
             FTP_PWD: ${FTP_PWD}
-            DB_HOSTNAME: ${DB_HOSTNAME}
-            DATABASE_NAME: ${DATABASE_NAME}
-            DATABASE_ADMIN: ${DATABASE_ADMIN}
-            DATABASE_ADMIN_PWD: ${DATABASE_ADMIN_PWD}
+
+    
+    redis:
+        image: redis
+        build: requirements/bonus/redis
+        container_name: redis
+        ports:
+            - "6379:6379"
+        networks:
+            - backend
+        restart: always
+        environment:
+            REDIS_PWD: ${REDIS_PWD}
+
+    adminer:
+        image: adminer
+        build: requirements/bonus/adminer
+        container_name: adminer
+        volumes_from:
+            - wordpress
+        depends_on:
+            - wordpress
+        networks:
+            - backend
+        restart: always
 
 
 networks:

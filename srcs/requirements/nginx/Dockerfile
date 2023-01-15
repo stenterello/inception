@@ -11,6 +11,4 @@ RUN		openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes \
 		-out	/etc/nginx/ssl/ddelladi.pem \
 		-subj   "/C=IT/ST=Italy/L=Rome/O=42 Rome/OU=ddelladi/CN=ddelladi/"
 
-RUN		echo "Nginx starting"
-
 ENTRYPOINT	[ "nginx", "-g", "daemon off;" ]
