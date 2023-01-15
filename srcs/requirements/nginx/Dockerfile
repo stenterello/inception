@@ -2,10 +2,9 @@ FROM		alpine:3.13.6
 
 RUN		apk add --no-cache nginx openssl
 
-RUN		mkdir /etc/nginx/ssl
-RUN		mkdir /run/nginx
+RUN		mkdir /etc/nginx/ssl && mkdir /run/nginx && mkdir -p /var/www/html/wordpress
 
-COPY		conf/nginx.conf /etc/nginx/conf.d/
+COPY		conf/nginx.conf /etc/nginx/http.d/
 
 RUN		openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes \
 		-keyout /etc/nginx/ssl/ddelladi.key \

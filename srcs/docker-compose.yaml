@@ -10,6 +10,7 @@ services:
             - "443:443"
         volumes:
             - nginx:/var/log/nginx
+            - wp_files:/var/www/html/wordpress
         depends_on:
             - wordpress
         networks:
@@ -73,18 +74,18 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/ddelladi/data/wp_files
+            device: /home/davide/data/wp_files
     wp_database:
         driver: local
         name: wp_database
         driver_opts:
             type: none
             o: bind
-            device: /home/ddelladi/data/wp_database
+            device: /home/davide/data/wp_database
     nginx:
         driver: local
         name: nginx
         driver_opts:
             type: none
             o: bind
-            device: /home/ddelladi/data/nginx
+            device: /home/davide/data/nginx
