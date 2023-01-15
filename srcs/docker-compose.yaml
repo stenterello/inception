@@ -9,8 +9,9 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - nginx:/var/log/nginx
-            - wp_files:/var/www/html/wordpress
+            - logs:/var/log/custom_logs
+        volumes_from:
+            - wordpress
         depends_on:
             - wordpress
         networks:
@@ -24,7 +25,7 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - wp_files:/var/www/html/wordpress
+            - website:/var/www/html
         networks:
             - frontend
             - backend
@@ -63,18 +64,41 @@ services:
             DATABASE_ADMIN_PWD: ${DATABASE_ADMIN_PWD}
 
 
+    ftp:
+        image: ftp
+        build: requirements/bonus/ftp
+        container_name: ftp
+        ports:
+            - "21:21"
+            - "50000-50030:50000-50030"
+        depends_on:
+            - nginx
+        volumes_from:
+            - nginx
+        networks:
+            - backend
+        restart: always
+        environment:
+            FTP_USER: ${FTP_USER}
+            FTP_PWD: ${FTP_PWD}
+            DB_HOSTNAME: ${DB_HOSTNAME}
+            DATABASE_NAME: ${DATABASE_NAME}
+            DATABASE_ADMIN: ${DATABASE_ADMIN}
+            DATABASE_ADMIN_PWD: ${DATABASE_ADMIN_PWD}
+
+
 networks:
     frontend:
     backend:
 
 volumes:
-    wp_files:
+    website:
         driver: local
-        name: wp_files
+        name: website
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/wp_files
+            device: /home/davide/data/website
     wp_database:
         driver: local
         name: wp_database
@@ -82,10 +106,10 @@ volumes:
             type: none
             o: bind
             device: /home/davide/data/wp_database
-    nginx:
+    logs:
         driver: local
-        name: nginx
+        name: logs
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/nginx
+            device: /home/davide/data/logs

@@ -18,4 +18,6 @@ else
 	echo "Wordpress already installed";
 fi
 
+echo "Wordpress starting"
+
 /usr/sbin/php-fpm7 -F -R

@@ -2,7 +2,7 @@
 
 if [ ! -d "~/data" ];
 then
-	mkdir -p ~/data/wp_files ~/data/wp_database ~/data/nginx
+	mkdir -p ~/data/website ~/data/wp_database ~/data/logs
 fi
 
 if [ `cat /etc/hosts | grep ddelladi.42.fr | wc -l` -eq 0 ];

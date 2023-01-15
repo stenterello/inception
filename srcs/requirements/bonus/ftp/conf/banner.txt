@@ -1,0 +1,2 @@
+Benvenuto nel server FTP di Inception
+Posizione corrente: /var/www/html
