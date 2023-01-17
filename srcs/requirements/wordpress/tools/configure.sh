@@ -10,11 +10,6 @@ done
 if [ ! -f "/var/www/html/wordpress/index.php" ];
 then
 
-	# Static Website
-
-	mv /tmp/index.html .
-
-
 	# Wordpress
 
 	wp core download --allow-root

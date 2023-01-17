@@ -32,13 +32,16 @@ EOF
 fi
 
 
-# CREATE GIT BARE REPO AND SSH DIRECTORY
+# CREATE SSH DIRECTORY
 
 if [ ! -d "/var/git/inception.git" ];
 then
-	chown git:git /tmp/git_init.sh
-	chmod 764 /tmp/git_init.sh
-	/bin/bash -c '/tmp/git_init.sh' git
+	mkdir /var/git/.ssh
+	chown git:git /var/git/.ssh
+	chmod 760 /var/git/.ssh
+	touch /var/git/.ssh/authorized_keys
+	chown git:git /var/git/.ssh/authorized_keys
+	chmod 660 /var/git/.ssh/authorized_keys
 fi
 
 
@@ -47,10 +50,7 @@ fi
 if [ ! -d "/var/www/html/cgit" ];
 then
 
-	if [ ! -d "/var/www/html/cgit" ];
-	then
-		mkdir -p /var/www/html/cgit
-	fi
+	mkdir -p /var/www/html/cgit
 	git clone git://git.zx2c4.com/cgit
 	cd cgit
 	make get-git
@@ -62,32 +62,6 @@ then
 
 fi
 
-# project-list=/tmp/project-list.txt
-
-# CGIT CONFIGURATION
-
-cat << EOF > /etc/cgitrc
-cache-scanrc-ttl=0
-css=/cgit/cgit.css
-logo=/cgit/cgit.png
-js=/cgit/cgit.js
-virtual-root=/
-scan-path=/var/git/
-root-title=This is ddelladi's cgit
-root-desc=A personal git repo on a website
-readme=README
-cache-size=0
-clone-prefix=https://ddelladi.42.fr
-EOF
-
-cat << EOF > /etc/conf.d/spawn-fcgi.cgit
-FCGI_PORT=1234
-FCGI_PROGRAM=/usr/bin/fcgiwrap
-FCGI_USER="nginx"
-FCGI_GROUP="nginx"
-OPTIONS="-u nginx -g nginx -P /var/run/spawn-fcgi.pid -- /usr/bin/fcgiwrap -f"
-EOF
-
 
 # FCGIWRAP SETUP
 
@@ -97,6 +71,5 @@ then
 	ln -s /usr/bin/spawn-fcgi /usr/bin/spawn-fcgi.cgit
 fi
 
-export SCRIPT_NAME="/cgit"
 echo "Cgit starting"
 /usr/bin/spawn-fcgi.cgit -n -a 0.0.0.0 -p 1234  /usr/bin/fcgiwrap

@@ -1,0 +1,13 @@
+cache-scanrc-ttl=0
+css=/cgit/cgit.css
+logo=/cgit/cgit.png
+js=/cgit/cgit.js
+favicon=/cgit/favicon.ico
+remove-suffix=1
+root-title=This is ddelladi's cgit
+root-desc=A personal git repo on a website
+readme=README
+cache-size=0
+clone-prefix=https://ddelladi.42.fr
+virtual-root=/cgit/
+scan-path=/var/git/

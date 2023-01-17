@@ -164,4 +164,4 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/repo
+            device: /home/davide/data/repositories

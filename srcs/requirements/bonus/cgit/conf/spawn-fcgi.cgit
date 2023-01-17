@@ -1,0 +1,5 @@
+FCGI_PORT=1234
+FCGI_PROGRAM=/usr/bin/fcgiwrap
+FCGI_USER=nginx
+FCGI_GROUP=nginx
+OPTIONS="-u nginx -g nginx -P /var/run/spawn-fcgi.pid -- /usr/bin/fcgiwrap -f"
