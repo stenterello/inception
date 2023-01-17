@@ -13,7 +13,7 @@ services:
         volumes_from:
             - wordpress
         depends_on:
-            - wordpress
+            - cgit
         networks:
             - frontend
         restart: always
@@ -73,7 +73,7 @@ services:
         container_name: ftp
         ports:
             - "21:21"
-            - "50500-50600:50500-50600"
+            - "65100-65200:65100-65200"
         depends_on:
             - nginx
         volumes_from:
@@ -98,6 +98,7 @@ services:
         environment:
             REDIS_PWD: ${REDIS_PWD}
 
+
     adminer:
         image: adminer
         build: requirements/bonus/adminer
@@ -109,6 +110,26 @@ services:
         networks:
             - backend
         restart: always
+
+    
+    cgit:
+        image: cgit
+        build: requirements/bonus/cgit
+        container_name: cgit
+        volumes_from:
+            - wordpress
+        volumes:
+            - repo:/var/git/
+        depends_on:
+            - wordpress
+        networks:
+            - frontend
+            - backend
+        ports:
+            - "1234:1234"
+        restart: always
+        environment:
+            GIT_PWD: ${GIT_PWD}
 
 
 networks:
@@ -137,3 +158,10 @@ volumes:
             type: none
             o: bind
             device: /home/davide/data/logs
+    repo:
+        driver: local
+        name: repo
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/davide/data/repo
