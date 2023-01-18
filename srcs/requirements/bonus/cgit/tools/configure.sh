@@ -34,7 +34,7 @@ fi
 
 # CREATE SSH DIRECTORY
 
-if [ ! -d "/var/git/inception.git" ];
+if [ ! -d "/var/git/.ssh" ];
 then
 	mkdir /var/git/.ssh
 	chown git:git /var/git/.ssh
@@ -49,7 +49,6 @@ fi
 
 if [ ! -d "/var/www/html/cgit" ];
 then
-
 	mkdir -p /var/www/html/cgit
 	git clone git://git.zx2c4.com/cgit
 	cd cgit
@@ -59,7 +58,6 @@ then
 	sed -i 's/\tCGIT_LIBS += -ldl/\tCGIT_LIBS += -ldl -lintl/' cgit.mk
 	make
 	make install
-
 fi
 
 

@@ -119,7 +119,7 @@ services:
         volumes_from:
             - wordpress
         volumes:
-            - repo:/var/git/
+            - repositories:/var/git/
         depends_on:
             - wordpress
         networks:
@@ -158,9 +158,9 @@ volumes:
             type: none
             o: bind
             device: /home/davide/data/logs
-    repo:
+    repositories:
         driver: local
-        name: repo
+        name: repositories
         driver_opts:
             type: none
             o: bind
