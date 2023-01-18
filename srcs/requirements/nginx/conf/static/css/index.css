@@ -1,0 +1,212 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color:white;
+	overflow: hidden;
+}
+
+p, span, h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto";
+}
+
+#header {
+	margin: 20px auto 10vh 40px;
+}
+
+.container {
+	display: flex;
+}
+
+.left {
+	width: 35%;
+}
+
+.left > div {
+	height: 33.33%;
+	display: flex;
+	align-items: center;
+}
+
+.left > div > div {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.central-line {
+	width: 100%;
+}
+
+.other-line {
+	width: 0%;
+	height: 1px;
+	border-width: 0;
+	align-self: center;
+	animation-name: linea;
+	animation-timing-function: ease-in-out;
+	animation-duration: 3s;
+	animation-play-state: paused;
+	animation-fill-mode: forwards;
+}
+
+.little-link {
+	position: relative;
+	right: 20vw;
+	animation: little-link 2s ease-in-out forwards, little-link-opacity 4s ease-in-out forwards;
+	animation-play-state: paused;
+	opacity: 0;
+	z-index: -10;
+}
+
+.box {
+	width: 10vw;
+	text-align: center;
+	border: 1px solid black;
+	padding: 10px 20px;
+}
+
+#right-box {
+	width: 60%;
+	border: 1px solid black;
+	margin-right: 10vw;
+	height: 70vh;
+	max-height: 600px;
+	z-index: 0;
+	position: relative;
+	overflow: hidden;
+}
+
+#first-button {
+	width: 100%;
+	height: 100%;
+	animation-name: central-box-to-blue;
+	animation-timing-function: ease-in-out;
+	animation-duration: .7s;
+	animation-fill-mode: forwards;
+	animation-play-state: paused;
+	z-index: 1;
+}
+
+.container-div {
+	z-index: -1;
+	background-color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	max-width: 0%;
+	max-height: 0%;
+	width: 0%;
+	height: 0%;
+	margin: 0 auto;
+	border: 1px solid black;
+	animation: container-div 4s forwards;
+	animation-play-state: paused;
+}
+
+.container-div > p {
+	padding: 20% 15%;
+	animation: text-from-nowhere 4s forwards;
+	animation-play-state: paused;
+	color: rgba(0, 0, 0, 0);
+}
+
+.container-div > p > a {
+	animation: text-from-nowhere 4s forwards;
+	animation-play-state: paused;
+	color: rgba(0, 0, 0, 0);
+}
+
+.container-div > span {
+	padding: unset;
+	margin: 0 auto;
+	display: block;
+	font-size: 1.5em;
+	animation: text-from-nowhere 4s forwards;
+	animation-play-state: paused;
+	color: rgba(0, 0, 0, 0);
+}
+
+.container-div > #hint {
+	animation: span-from-nowhere 4s forwards;
+	animation-play-state: paused;
+	color: rgba(0, 0, 0, 0);
+}
+
+#third-button > .inside-span {
+	width: 65%;
+	text-align: right;
+	margin: 0 0 0 auto;
+	padding: 3% 5%;
+}
+
+#third-button > .inside-p {
+	padding: 1% 5%;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: row;
+	width: 100%;
+}
+
+footer > p {
+	font-size: 0.9em;
+	margin: auto 2vw 2vh auto;
+}
+
+p {
+	font-size: 1.5em;
+}
+
+.little-link > div > p {
+	font-size: 1em;
+}
+
+@keyframes linea {
+	0% { width: 0%; border-width: 0px; }
+	100% { width: 45%; border-width: 1px; }
+}
+
+@keyframes little-link {
+	0% { right: 20vw; z-index: -10;}
+	100% { right: 0; z-index: 1;}
+}
+
+@keyframes little-link-opacity {
+	0% { opacity: 0;}
+	100% { opacity: 1;}
+}
+
+@keyframes central-box-to-blue {
+	0% { background-color: rgb(255, 255, 255); }
+	100% { background-color: blue; }
+}
+
+@keyframes central-box-to-white {
+	0% { background-color: blue; }
+	100% { background-color: rgb(255, 255, 255); }
+}
+
+@keyframes container-div {
+	0% { max-width: 0%; max-height: 0%; width: 0%; height: 0%; border-width: 0px; top: 50%; left: 50%;}
+	100% { max-width: 99%; max-height: 99%; width: 99%; height: 99%; border-width: 1px; top: .5%; left: .5%;}
+}
+
+@keyframes text-from-nowhere {
+	0% { color: rgba(0, 0, 0, 0); }
+	25% { color: rgba(0, 0, 0, 0); }
+	100% { color: rgba(0, 0, 0, 1); }
+}
+
+@keyframes span-from-nowhere {
+	0% { color: rgba(0, 0, 0, 0); }
+	25% { color: rgba(0, 0, 0, 0); }
+	100% { color: rgba(0, 0, 0, .5); }
+}
