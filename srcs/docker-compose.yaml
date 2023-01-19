@@ -143,25 +143,25 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/website
+            device: /home/ddelladi/data/website
     wp_database:
         driver: local
         name: wp_database
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/wp_database
+            device: /home/ddelladi/data/wp_database
     logs:
         driver: local
         name: logs
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/logs
+            device: /home/ddelladi/data/logs
     repositories:
         driver: local
         name: repositories
         driver_opts:
             type: none
             o: bind
-            device: /home/davide/data/repositories
+            device: /home/ddelladi/data/repositories
